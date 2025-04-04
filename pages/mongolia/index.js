@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export default function mongolapi() {
+export default function Mongolapi() {
+    const router = useRouter();
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const [isGridView, setIsGridView] = useState(true);
@@ -65,7 +67,8 @@ export default function mongolapi() {
                 isGridView ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 m-4">
                         {filteredData.map((item) => (
-                            <div key={item.id} className="border-2 text-black bg-white shadow rounded-lg p-4 text-center">
+                            <button key={item.id}
+                            onClick={() => router.push('/mongolia/${item.category}/${item.id}')} className="border-2 text-black bg-white shadow rounded-lg p-4 text-center">
                                 <img
                                     src={item?.images?.[0] || "https://via.placeholder.com/150"}
                                     alt={item.name || "Image"}
@@ -75,7 +78,7 @@ export default function mongolapi() {
                                 <p>{item.description}</p>
                                 <p className="font-bold">{item.timePeriod}</p>
                                 <p className="font-bold">{item?.materials}</p>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 ) : (
